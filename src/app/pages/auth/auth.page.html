@@ -8,7 +8,7 @@
     <div class="d-flex-center">
       <form class="ion-text-center" (keyup.enter)="onLogin()" (ngSubmit)="onLogin()">
         <!-- EMAIL -->
-        <app-custom-input [control]="email" [type]="'email'" [label]="'Correo'" [icon]="'mail-outline'" />
+        <app-custom-input [control]="email" [type]="'email'" [label]="'Correo'" [icon]="'mail-outline'" autocomplete="email" />
         <div class="validators" *ngIf="email.errors && email.dirty">
           <div *ngIf="email.errors?.['required']">Ingresa tu correo</div>
           <div *ngIf="email.errors?.['email']">Ingresa un correo valido</div>
@@ -30,7 +30,7 @@
         <!-- SIGN UP  -->
         <div class="sing-up">
           <div>¿No tienes cuenta?</div>
-          <ion-button shape="round" class="ion-margin-vertical">
+          <ion-button routerLink="sign-up" shape="round" class="ion-margin-vertical">
             Registrate
             <ion-icon slot="end" name="person-add-outline"></ion-icon>
           </ion-button>
