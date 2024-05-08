@@ -5,9 +5,12 @@ import {
   AlertOptions,
   LoadingController,
   LoadingOptions,
+  ModalController,
+  ModalOptions,
   ToastController,
   ToastOptions,
 } from '@ionic/angular';
+import { Task } from 'src/app/models/task.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +21,7 @@ export class UtilsService {
   #router = inject(Router);
   #toastCtrl = inject(ToastController);
   #alertCtrl = inject(AlertController);
+  #modalCtrl = inject(ModalController);
   constructor() {}
 
   // ========== Loading ========== //
@@ -78,5 +82,29 @@ export class UtilsService {
   async presentAlert(opts: AlertOptions) {
     const alert = await this.#alertCtrl.create(opts);
     alert.present();
+  }
+
+  // ========== Modal ========== //
+  async presentModal(opts: ModalOptions) {
+    const modal = await this.#modalCtrl.create(opts);
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+
+    if (data) {
+      return data;
+    }
+  }
+
+  async dismissModal(data?: any) {
+    return await this.#modalCtrl.dismiss();
+  }
+
+  getPercentage(task: Task) {
+    const completedItems = task.items.filter((item) => item.completed).length;
+    const totalItems = task.items.length;
+    const percentage = (100 / totalItems) * completedItems;
+
+    return parseInt(`${percentage}`);
   }
 }

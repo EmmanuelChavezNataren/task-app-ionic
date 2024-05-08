@@ -1,0 +1,22 @@
+ion-card {
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.168);
+  min-height: 200px;
+  padding: 10px;
+
+  &:hover {
+    cursor: pointer;
+    background: var(--ion-color-light);
+  }
+}
+
+ion-card-title {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 20px;
+  padding-top: 10px;
+}
+
+.task-btn{
+  width: 120px;
+}

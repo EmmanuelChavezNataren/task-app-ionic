@@ -1,13 +1,53 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>home</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <app-header title="Tareas" />
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="content">
+
+    <ion-button mode="ios" class="ion-margin">
+      Nueva Tarea
+      <ion-icon slot="end" name="add-circle-outline"></ion-icon>
+    </ion-button>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col sizeLg="6" sizeMd="6" sizeSm="12" sizeXs="12" *ngFor="let task of tasks">
+          <ion-card mode="ios">
+            <ion-grid>
+              <ion-row>
+                <ion-col sizeLg="5" sizeMd="5" sizeSm="4" sizeXs="12" class="ion-text-center">
+                  <circle-progress [percent]="getPercentage(task)" [radius]="65" [outerStrokeWidth]="6"
+                    [innerStrokeWidth]="4" [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'"
+                    [animation]="true" [animationDuration]="300" [titleColor]="'var(--ion-color-dark)'"
+                    [subtitle]="'Progreso'" />
+                </ion-col>
+                <ion-col sizeLg="7" sizeMd="7" sizeSm="8" sizeXs="12" class="ion-padding">
+                  <ion-card-header>
+                    <ion-card-title> {{ task.title }} </ion-card-title>
+                  </ion-card-header>
+
+                  <ion-card-content>
+                    <p> {{ task.description | slice:0:85}}... </p>
+
+                    <div class="ion-text-center">
+
+                      <ion-button mode="ios" size="small" class="task-btn">
+                        Ver Tarea
+                        <ion-icon slot="end" name="eye-outline"></ion-icon>
+                      </ion-button>
+
+                      <ion-button mode="ios" color="danger" size="small" class="task-btn">
+                        Eliminar Tarea
+                        <ion-icon slot="end" name="trash-outline"></ion-icon>
+                      </ion-button>
+                    </div>
+                  </ion-card-content>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
 </ion-content>
