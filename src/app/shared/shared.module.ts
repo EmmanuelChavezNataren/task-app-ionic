@@ -1,16 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HeaderComponent } from './components/header/header.component';
+import { IonicModule } from '@ionic/angular';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { AddUpdateTaskComponent } from './components/add-update-task/add-update-task.component';
 import { CustomInputComponent } from './components/custom-input/custom-input.component';
+import { HeaderComponent } from './components/header/header.component';
 import { LogoComponent } from './components/logo/logo.component';
 
 export const components = [
   HeaderComponent,
   CustomInputComponent,
-  LogoComponent
+  LogoComponent,
+  AddUpdateTaskComponent,
 ];
 
 @NgModule({
@@ -20,8 +23,18 @@ export const components = [
     IonicModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    // Specify ng-circle-progress as an import
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: '#78C000',
+      innerStrokeColor: '#C7E596',
+      animationDuration: 300,
+    }),
   ],
-  exports: [components]
+  exports: [components, NgCircleProgressModule],
 })
-export class SharedModule { }
+export class SharedModule {}
