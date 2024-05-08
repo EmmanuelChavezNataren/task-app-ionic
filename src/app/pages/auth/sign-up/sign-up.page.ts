@@ -68,7 +68,7 @@ export class SignUpPage implements OnInit {
           };
 
           this.#utilsServ.setElementInStorage('user', user);
-          this.#utilsServ.routerLink('/tabs');
+          this.#utilsServ.routerLink('/tabs/home');
 
           this.#utilsServ.dismissLoading();
           this.#utilsServ.presentToast({
@@ -77,6 +77,8 @@ export class SignUpPage implements OnInit {
             color: 'primary',
             icon: 'person-outline',
           });
+
+          this.form.reset();
         })
         .catch((error) => {
           console.error(error);
