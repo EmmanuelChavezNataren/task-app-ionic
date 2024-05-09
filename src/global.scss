@@ -57,12 +57,24 @@ ion-item {
   padding-bottom: 15px;
 }
 
-ion-button{
+ion-button {
   text-transform: capitalize;
 }
 
-.d-flex-center{
+.d-flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.add-update-modal {
+  --border-radius: 20px;
+  --height: 95%;
+}
+
+@media screen and (max-width: 768px) {
+  .add-update-modal {
+    --border-radius: 0;
+    --height: 100%;
+  }
 }

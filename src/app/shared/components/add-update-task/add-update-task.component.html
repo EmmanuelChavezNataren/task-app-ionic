@@ -1,0 +1,54 @@
+<ion-content color="light">
+  <app-header [isModal]="true" [hasCenterTitle]="true" title="Tarea" color="light" />
+
+  <!-- TITLE -->
+  <app-custom-input [control]="title" [type]="'text'" [label]="'Título'" />
+  <div class="validators" *ngIf="title.errors && title.dirty">
+    <div *ngIf="title.errors?.['required']">Este campo es requerido</div>
+    <div *ngIf="title.errors?.['minLength']">Este campo requiere al menos 4 caracteres</div>
+  </div>
+  <!-- END TITLE -->
+
+  <!-- DESCRIPTION -->
+  <app-custom-input [control]="description" [type]="'textarea'" [label]="'Descripción'" />
+  <div class="validators" *ngIf="description.errors && description.dirty">
+    <div *ngIf="description.errors?.['required']">Este campo es requerido</div>
+    <div *ngIf="description.errors?.['minLength']">Este campo requiere al menos 4 caracteres</div>
+  </div>
+  <!-- END DESCRIPTION -->
+
+  <!-- ACTIVITIES -->
+  <ion-item class="item-header" lines="none">
+    <ion-label>Actividades</ion-label>
+
+    <span slot="end" *ngIf="form.value.items.length">
+      Progreso: {{ getPercentage() }} %
+    </span>
+    <ion-button (click)="createItem()" slot="end" mode="ios">
+      <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+
+  <ion-range [value]="getPercentage()" />
+
+  <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event))">
+
+    <div *ngFor="let item of form.value.items; trackBy: trackItems; let i = index">
+      <ion-item lines="none">
+        <ion-checkbox slot="start" color="success" [(ngModel)]="item.completed"></ion-checkbox>
+        <ion-label class="ion-text-wrap"> {{ item.name }} </ion-label>
+
+        <ion-buttons slot="end">
+          <ion-button (click)="removeItem(i)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+
+      <ion-item class="item-reorder">
+        <ion-reorder slot="end"></ion-reorder>
+      </ion-item>
+    </div>
+  </ion-reorder-group>
+  <!-- END ACTIVITIES -->
+</ion-content>

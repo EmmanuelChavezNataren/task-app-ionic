@@ -3,7 +3,7 @@
 
   <div class="content">
 
-    <ion-button mode="ios" class="ion-margin">
+    <ion-button mode="ios" (click)="addOrUpdateTask()" class="ion-margin">
       Nueva Tarea
       <ion-icon slot="end" name="add-circle-outline"></ion-icon>
     </ion-button>
@@ -30,7 +30,7 @@
 
                     <div class="ion-text-center">
 
-                      <ion-button mode="ios" size="small" class="task-btn">
+                      <ion-button (click)="addOrUpdateTask(task)" mode="ios" size="small" class="task-btn">
                         Ver Tarea
                         <ion-icon slot="end" name="eye-outline"></ion-icon>
                       </ion-button>

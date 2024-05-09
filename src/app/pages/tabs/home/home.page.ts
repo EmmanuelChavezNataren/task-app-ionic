@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Task } from 'src/app/models/task.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { AddUpdateTaskComponent } from 'src/app/shared/components/add-update-task/add-update-task.component';
 
 @Component({
   selector: 'app-home',
@@ -50,11 +51,20 @@ export class HomePage implements OnInit {
   #utilsServ = inject(UtilsService);
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.addOrUpdateTask(this.tasks[0]);
+  }
 
   //UI Events
-
   getPercentage(task: Task) {
     return this.#utilsServ.getPercentage(task);
+  }
+
+  addOrUpdateTask(task?: Task) {
+    this.#utilsServ.presentModal({
+      component: AddUpdateTaskComponent,
+      componentProps: { task },
+      cssClass: 'add-update-modal',
+    });
   }
 }
