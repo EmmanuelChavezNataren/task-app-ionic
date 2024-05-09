@@ -1,4 +1,5 @@
-<ion-item class="ion-margin-vertical">
+<!-- INPUT -->
+<ion-item *ngIf="type !== 'textarea'" class="ion-margin-vertical">
   <ion-icon *ngIf="icon" slot="start" [name]="icon" color="primary" />
   <ion-label position="floating">{{ label }}</ion-label>
   <ion-input [formControl]="control" [autocomplete]="autocomplete" [type]="type" debounce="500" />
@@ -8,3 +9,11 @@
     </ion-button>
   </ion-buttons>
 </ion-item>
+<!-- END INPUT -->
+
+<!-- TEXTAREA -->
+<ion-item *ngIf="type === 'textarea'" class="ion-margin-vertical">
+  <ion-label position="floating">{{ label }}</ion-label>
+  <ion-textarea [formControl]="control" debounce="500" [autoGrow]="true"></ion-textarea>
+</ion-item>
+<!-- END TEXTAREA -->

@@ -1,7 +1,7 @@
-import { Input, inject } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeService } from 'src/app/services/theme.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-header',
@@ -26,15 +26,22 @@ export class HeaderComponent implements OnInit {
 
   isDarkMode: BehaviorSubject<boolean>;
 
+  //Injects
   #themeServ = inject(ThemeService);
-
+  #utilsServ = inject(UtilsService);
   constructor() {}
 
+  // Life Cycle Events
   ngOnInit(): void {
-      this.isDarkMode = this.#themeServ.isDarkMode;
+    this.isDarkMode = this.#themeServ.isDarkMode;
   }
 
+  //UI Events
   setTheme(isDarkMode: boolean) {
     this.#themeServ.setTheme(isDarkMode);
+  }
+
+  dissmissModal() {
+    this.#utilsServ.dismissModal();
   }
 }
