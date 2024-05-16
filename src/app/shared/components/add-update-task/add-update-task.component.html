@@ -1,5 +1,5 @@
 <ion-content color="light">
-  <app-header [isModal]="true" [hasCenterTitle]="true" title="Tarea" color="light" />
+  <app-header [isModal]="true" [hasCenterTitle]="true" [title]="task ? 'Tarea' : 'Nueva Tarea'" color="light" />
 
   <!-- TITLE -->
   <app-custom-input [control]="title" [type]="'text'" [label]="'Título'" />
@@ -52,3 +52,11 @@
   </ion-reorder-group>
   <!-- END ACTIVITIES -->
 </ion-content>
+
+<ion-footer>
+  <div class="ion-text-end">
+    <ion-button [disabled]="form.invalid" mode="ios" (click)="submit()" shape="round" class="ion-margin">
+      {{ task ? 'Guardar Cambios' : 'Crear Tarea' }}
+    </ion-button>
+  </div>
+</ion-footer>

@@ -52,6 +52,74 @@ export class AddUpdateTaskComponent implements OnInit {
   }
 
   //UI Events
+  submit() {
+    if (this.form.value) {
+      if (this.task) {
+        this.updateTask();
+      } else {
+        this.createTask();
+      }
+    }
+  }
+
+  createTask() {
+    const path = `users/${this.user.uid}`;
+
+    this.#utilsServ.presentLoading();
+    delete this.form.value.id;
+
+    this.#firebaseServ
+      .addToSubcollection(path, 'tasks', this.form.value)
+      .then((res) => {
+        this.#utilsServ.dismissModal({ success: true });
+        this.#utilsServ.presentToast({
+          message: 'Tarea creada exitosamente',
+          color: 'success',
+          icon: 'checkmark-circle-outline',
+          duration: 1500,
+        });
+        this.#utilsServ.dismissLoading();
+      })
+      .catch((error) => {
+        this.#utilsServ.presentToast({
+          message: error,
+          color: 'warning',
+          icon: 'alert-circle-outline',
+          duration: 5000,
+        });
+        this.#utilsServ.dismissLoading();
+      });
+  }
+
+  updateTask() {
+    const path = `users/${this.user.uid}/tasks/${this.task.id}`;
+
+    this.#utilsServ.presentLoading();
+    delete this.form.value.id;
+
+    this.#firebaseServ
+      .updateDocument(path, this.form.value)
+      .then((res) => {
+        this.#utilsServ.dismissModal({ success: true });
+        this.#utilsServ.presentToast({
+          message: 'Tarea actualizada exitosamente',
+          color: 'success',
+          icon: 'checkmark-circle-outline',
+          duration: 1500,
+        });
+        this.#utilsServ.dismissLoading();
+      })
+      .catch((error) => {
+        this.#utilsServ.presentToast({
+          message: error,
+          color: 'warning',
+          icon: 'alert-circle-outline',
+          duration: 5000,
+        });
+        this.#utilsServ.dismissLoading();
+      });
+  }
+
   getPercentage() {
     return this.#utilsServ.getPercentage(this.form.value as Task);
   }
@@ -67,7 +135,7 @@ export class AddUpdateTaskComponent implements OnInit {
 
   removeItem(index: number) {
     this.form.value.items.splice(index, 1);
-    this.form.updateValueAndValidity();
+    this.items.updateValueAndValidity();
   }
 
   createItem() {
@@ -94,7 +162,7 @@ export class AddUpdateTaskComponent implements OnInit {
               completed: false,
             };
             this.form.value.items.push(item);
-            this.form.updateValueAndValidity();
+            this.items.updateValueAndValidity();
           },
         },
       ],
